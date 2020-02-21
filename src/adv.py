@@ -1,6 +1,16 @@
 from room import Room
+from player import Player
+     
+# * Prints the current description (the textwrap module might be useful here).
+# * Waits for user input and decides what to do.
+#
+# If the user enters a cardinal direction, attempt to move to the room there.
+# Print an error message if the movement isn't allowed.
+#
+# If the user enters "q", quit the game.
 
 # Declare all the rooms
+
 
 room = {
     'outside':  Room("Outside Cave Entrance",
@@ -33,19 +43,42 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-#
-# Main
-#
 
 # Make a new player object that is currently in the 'outside' room.
+player = Player(room['outside'], "Guy")
 
-# Write a loop that:
-#
+
+print(player.room)
+key = input("[N] North   [E] East   [S] South   [W] West   [Q] Quit\n").upper()
 # * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+def isValidRoom(room,prop):
+
+    return hasattr(room, prop)
+
+while not key == "Q":
+
+    if key == "N" and isValidRoom(player.room, "n_to"):
+        player.room = player.room.n_to
+        print(player.room)
+
+    elif key =="E" and isValidRoom(player.room, "e_to"):
+        player.room = player.room.e_to
+        print(player.room)
+
+    elif key == "S" and isValidRoom(player.room,"s_to"):
+        player.room = player.room.s_to
+        print(player.room)
+
+    elif key == "W" and isValidRoom(player.room,"w_to"):
+        player.room = player.room.w_to
+        print(player.room)
+        
+    else:
+        print("can't go dat way big boi")
+    key = input("[N] North   [E] East   [S] South   [W] West   [Q] Quit\n").upper()
+
+
+        
+
+
+
